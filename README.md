@@ -148,3 +148,60 @@ If it's successfull, you should see a JSON payload return like below:
 ```
 
 We'll need to generate the AWS CLI credentials from IAM user in order to use the AWS CLI
+
+# Terraform Basics
+
+### Terraform Registry
+
+Terraform sources their providers and modules from the Terraform registry 
+[registry.terraform.io](https://registry.terraform.io/)
+
+**Providers** -
+Providers are a logical abstraction of an upstream API. They are responsible for understanding API interactions and exposing resources.
+
+[Random Terraform Provider](https://registry.terraform.io/providers/hashicorp/random/latest)
+
+**Modules** - 
+Modules are self-contained packages of Terraform configurations that are managed as a group.
+
+### Terraform Console
+
+We can see a list of all the Terraform Commands by simply typing `terraform`
+
+#### Terraform Init
+
+At the start of a new Terraform project, we will run `terraform init` to download the binaries for the terraform providers that we'll be using in the project.
+
+#### Terraform Plan
+
+`terraform plan`
+
+This will generate out the changeset, about the state of our infrastructure and what will be changed.
+
+We can output this changeset i.e. "plan" to be passed to an apply, but often you can just ignore outputting.
+
+#### Terraform Apply
+
+`terraform apply`
+
+This will run a plan and pass the changeset to be executed by terraform. Apply should prompt us 'yes' or 'no'
+
+We can automate approving an apply using `terraform apply --auto-approve`
+
+### Terraform Lock Files
+
+`.terraform.lock.hcl` contains the locked versioning for the providers or modules that should be used with this project.
+
+The Terraform lockFile **should be** committed to your Version Control System (VCS).
+
+### Terraform State Files
+
+`terraform.tf.state` contains information about the current state of your infrastructure. This file can contain sensitive date, if you lose this file you lose knowing the state of your infrastructure.
+
+`terraform.tfstate.backup` is the previous state file state.
+
+The Terraform state file **should not** be committed to your Version Control System (VCS).
+
+### Terraform Directory
+
+`.terraform` directory contains binaries of terraform provider. Make sure to add this to your `.gitignore` file.
